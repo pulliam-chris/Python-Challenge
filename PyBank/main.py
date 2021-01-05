@@ -52,7 +52,8 @@ with open(budget_csv) as csv_file:
 
         
 
-
+print('\n'"Financial Analysis")
+print("-----------------------------")
 print(f"Total Months: {monthCount}")
 print(f"Total: ${netRevenue}")
 print(f"Average Change: $")
@@ -60,16 +61,25 @@ print(f"Greatest Increase in Profits: {greatestIncrease_month} ($ {greatestIncre
 print(f"Greatest Decrease in Profits: {greatestDecrease_month} ($ {greatestDecrease_amount})")
 
 # Specify the file to write to
-output_path = os.path.join("Analysis", "budget_analysis.csv")
+output_path = os.path.join("Analysis", "budget_analysis.txt")
 
 # Open the file using "write" mode. Specify the variable to hold the contents
-with open(output_path, 'w', newline='') as csvfile:
+with open(output_path, 'w', newline='') as file:
 
     # Initialize csv.writer
-    csvwriter = csv.writer(csvfile, delimiter=',')
+    #textwriter = writer(file)
 
     # Write the first row (column headers)
-    csvwriter.writerow(['Total Months', 'Total', 'Average Change', 'Greatest Increase in Profits', 'Greatest Decrease in Profits'])
+    #file.write(['Total Months', 'Total', 'Average Change', 'Greatest Increase in Profits', 'Greatest Decrease in Profits'])
+
+    #Write each line as it has already been printed.  Include '\n' for end of line
+    file.write("Financial Analysis"'\n')
+    file.write("---------------------------------"'\n')
+    file.write(f"Total Months: {monthCount}"'\n')
+    file.write(f"Total: ${netRevenue}"'\n')
+    file.write(f"Average Change: $"'\n')
+    file.write(f"Greatest Increase in Profits: {greatestIncrease_month} ($ {greatestIncrease_amount})"'\n')
+    file.write(f"Greatest Decrease in Profits: {greatestDecrease_month} ($ {greatestDecrease_amount})"'\n')
 
     # Write the calculated results
-    csvwriter.writerow([monthCount, netRevenue, ' ', greatestIncrease_month, greatestDecrease_month])
+    #textwriter.writerow([monthCount, netRevenue, ' ', greatestIncrease_month, greatestDecrease_month])
