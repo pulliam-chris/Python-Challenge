@@ -89,7 +89,7 @@ with open(output_path, 'w', newline='') as file:
     file.write("---------------------------------"'\n')
     file.write(f"Total Months: {monthCount}"'\n')
     file.write(f"Total: ${netRevenue}"'\n')
-    file.write(f"Average Change: ${averageChange}'\n'")
+    file.write(f"Average Change: ${averageChange}"'\n')
     file.write(f"Greatest Increase in Profits: {greatestIncrease_month} ($ {greatestIncrease_amount})"'\n')
     file.write(f"Greatest Decrease in Profits: {greatestDecrease_month} ($ {greatestDecrease_amount})"'\n')
 
