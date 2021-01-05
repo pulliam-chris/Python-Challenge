@@ -11,8 +11,10 @@ greatestIncrease_amount = 0.00
 greatestIncrease_month = "Unknown"
 greatestDecrease_amount = 0.00
 greatestDecrease_month = "Unknown"
-previousMonth_amount = 0.00
+#set as original profit amount to accurately reflect profit/loss change
+previousMonth_amount = 867884.00 
 currentDifference = 0.00
+averageChange = 0.00
 
 # Open and read the budget csv
 with open(budget_csv) as csv_file:
@@ -42,7 +44,7 @@ with open(budget_csv) as csv_file:
             greatestIncrease_amount = float(currentDifference)
             greatestIncrease_month = row[0]
         
-        #if great decrease is less than the current figure, capture new value
+        #If greatest decrease is less than the current figure, capture new value
         if float(greatestDecrease_amount) > float(currentDifference):
             greatestDecrease_amount = float(currentDifference)
             greatestDecrease_month = row[0]
@@ -50,13 +52,23 @@ with open(budget_csv) as csv_file:
         #Set amount for next month comparison
         previousMonth_amount = float(row[1])
 
+        #Keep running total for average profit
+        averageChange = averageChange + float(currentDifference)
         
+#calculate average profit before printing. Reduce month count to eliminate starting month
+averageChange = float(averageChange / int(monthCount-1))
+averageChange = round(averageChange,2)
+
+#Use round() on calculated money values before printing and writing to file
+netRevenue = round(netRevenue)
+greatestDecrease_amount = round(greatestDecrease_amount)
+greatestIncrease_amount = round(greatestIncrease_amount)
 
 print('\n'"Financial Analysis")
 print("-----------------------------")
 print(f"Total Months: {monthCount}")
 print(f"Total: ${netRevenue}")
-print(f"Average Change: $")
+print(f"Average Change: ${averageChange}")
 print(f"Greatest Increase in Profits: {greatestIncrease_month} ($ {greatestIncrease_amount})")
 print(f"Greatest Decrease in Profits: {greatestDecrease_month} ($ {greatestDecrease_amount})")
 
@@ -77,7 +89,7 @@ with open(output_path, 'w', newline='') as file:
     file.write("---------------------------------"'\n')
     file.write(f"Total Months: {monthCount}"'\n')
     file.write(f"Total: ${netRevenue}"'\n')
-    file.write(f"Average Change: $"'\n')
+    file.write(f"Average Change: ${averageChange}'\n'")
     file.write(f"Greatest Increase in Profits: {greatestIncrease_month} ($ {greatestIncrease_amount})"'\n')
     file.write(f"Greatest Decrease in Profits: {greatestDecrease_month} ($ {greatestDecrease_amount})"'\n')
 
