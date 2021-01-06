@@ -4,30 +4,32 @@ import csv
 # Path to collect data from the Resources folder
 votes_csv = os.path.join('Resources', 'election_data.csv')
 
+#Function created to more easily check whether candidate already has an entry in the candidate list[]
 def candidate_in_list(candidateList, aCandidate):
     name = str(aCandidate)
     inList = bool(False)
 
+    #Cycle through the current candidate list, if the name is found set inList to true
     for candidate in candidateList:
         if candidate == name:
             inList = True
     
+    #return whether the candidate was found or not 
     return inList
-        
-#Define Variables for Calculations
+
+
+#Define Variables for candidate calculations
 totalVotes = 0
 winner = str("Unknown")
 
 #Define List for Candidate List in form [Candidate1, Candidate1's VoteCount, Candidate 2, Candidate2's VoteCount,..]
 candidateList = []
 
+#Variables to create and update candidateList
 candidateIndex = int(0)
 candidateVotes = int(0) 
 
-#Define Dictionary using key of candidates name for vote percentage and number of votes
-#candidates = dict()
-
-# Open and read the budget csv
+# Open and read the votes csv
 with open(votes_csv) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
 
@@ -36,80 +38,57 @@ with open(votes_csv) as csv_file:
 
     for row in csv_reader:
     
-        #Increment vote count
+        #Increment total vote count
         totalVotes = totalVotes + 1
 
-        #If the candidate is not already in the candidate list, add them and a vote counter
+        #If the candidate is already in the list ( found by function ), add to their vote counter
         if candidate_in_list(candidateList, row[2]):
-            #add a vote to their adjacent vote count in list
-            candidateIndex = candidateList.index(str(row[2]))
-            candidateIndex = int(candidateIndex) + 1
-            candidateVotes = int(candidateList[candidateIndex])
-            candidateVotes = int(candidateVotes) + 1
-            candidateList[candidateIndex] = candidateVotes
+            candidateIndex = candidateList.index(str(row[2])) #locate list index of candidate
+            candidateIndex = int(candidateIndex) + 1 #locate list index of the candidate's vote counter
+            candidateVotes = int(candidateList[candidateIndex]) #capture their number of current votes
+            candidateVotes = int(candidateVotes) + 1 #add to the count from the vote data
+            candidateList[candidateIndex] = candidateVotes #reset the candidate's vote counter to the new value
         
-        #create a new candidate entry with candidate name and set their adjacent vote count to 0    
+        #create a new candidate entry with candidate name and set their adjacent vote count to register their first vote   
         else:
             candidateList.append(str(row[2]))
             candidateList.append(1)
         
-        #for candidate in candidateList:
-            
-        #    if candidate == str(row[2]):
-        #        #add a vote to their adjacent count
-        #        candidateIndex = candidateList.index(str(row[2]))
-        #        candidateIndex = int(candidateIndex) + 1
-        #        candidateVotes = int(candidateList[candidateIndex])
-        #        candidateVotes = int(candidateVotes) + 1
-        #        candidateList[candidateIndex] = candidateVotes 
-        #    else:
-                #create a new candidate entry
-        #        candidateList.append(str(row[2]))
-        #        candidateList.append(0)
-                #candidateIndex = int(candidateList.index(str(row[2])))
-                #candidateIndex = int(candidateIndex) + 1
-                #candidateList[candidateIndex] = int(0)
-                
-
-        #if candidateList.index(row[2]) == :
-        #    candidateList.append(row[2])
-        
-        #candidateList[3]
-        #len(candidateList)
+#Candidate list now built from file and can be used for processing outputs        
                       
-
+#Print screen headers and total votes counted
 print('\n'"Election Results")
 print("-----------------------------")
 print(f"Total Votes: {totalVotes}")
 print("-----------------------------")
-#print(candidateList)
 
-#Print Results
-
-#Define some helpful variables
+#Define some helpful output variables
 i = int(0)
 printName = ""
 printVotes = ""
 votePercentage = float(0)
 mostVotes = int(0)
 
+#Print Results by Candidate
+
 #Use while loop to go through candidate List to collect and print the voting results to screen
 while i < len(candidateList):
     printName = str(candidateList[i])
-    i = i + 1
+    i = i + 1 #jump to the candidate's adjacent vote count in list
     printVotes = str(candidateList[i])
     votePercentage = float(int(printVotes)/int(totalVotes)*100)
+    #format percentage
     votePercentage = round(votePercentage,2)
     
-    #Track the winner by votes
+    #Check with each candidate to track largest number of votes to set the winner
     if mostVotes < int(candidateList[i]):
         mostVotes = int(candidateList[i])
         winner = str(printName)
 
-    #Print 
+    #Print candidate line
     print(f"{printName}: {votePercentage}% ({printVotes})")   
 
-    i = i + 1
+    i = i + 1 #continue to next candidate in list
 
 #Print the winner
 print("-----------------------------")
@@ -128,25 +107,25 @@ with open(output_path, 'w', newline='') as file:
     file.write("-----------------------------"'\n')
     
     #Use while loop to go through candidate List to collect and print the voting results to file
-    i = int(0)
+    i = int(0) #reset i from previous loop, reuse existing variables from screen prints
     while i < len(candidateList):
         printName = str(candidateList[i])
-        i = i + 1
+        i = i + 1 #jump to adjacent candidate vote count in list
         printVotes = str(candidateList[i])
         votePercentage = float(int(printVotes)/int(totalVotes)*100)
+        #format percentage
         votePercentage = round(votePercentage,2)
     
-        #Track the winner by votes
-        if mostVotes < int(candidateList[i]):
-            mostVotes = int(candidateList[i])
-            winner = str(printName)
-
-        #Write candidate to file
+        #Winner has already been calculated
+        
+        #Write candidate line to file
         file.write(f"{printName}: {votePercentage}% ({printVotes})"'\n')   
 
-        i = i + 1
+        i = i + 1 #continue to next candidate in list
 
     #Print the winner to file
     file.write("-----------------------------"'\n')
     file.write(f"Winner: {winner}"'\n')
     file.write("-----------------------------"'\n')
+
+#File read and output complete
