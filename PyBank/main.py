@@ -23,10 +23,6 @@ with open(budget_csv) as csv_file:
     #Skip the header
     next(csv_file)
 
-    # Read the header row first (skip this part if there is no header)
-    #csv_header = next(csv_file)
-    #print(f"Header: {csv_header}")
-
     # Read through each row of data after the header
     for row in csv_reader:
         
@@ -78,12 +74,6 @@ output_path = os.path.join("Analysis", "budget_analysis.txt")
 # Open the file using "write" mode. Specify the variable to hold the contents
 with open(output_path, 'w', newline='') as file:
 
-    # Initialize csv.writer
-    #textwriter = writer(file)
-
-    # Write the first row (column headers)
-    #file.write(['Total Months', 'Total', 'Average Change', 'Greatest Increase in Profits', 'Greatest Decrease in Profits'])
-
     #Write each line as it has already been printed.  Include '\n' for end of line
     file.write("Financial Analysis"'\n')
     file.write("---------------------------------"'\n')
@@ -93,5 +83,4 @@ with open(output_path, 'w', newline='') as file:
     file.write(f"Greatest Increase in Profits: {greatestIncrease_month} ($ {greatestIncrease_amount})"'\n')
     file.write(f"Greatest Decrease in Profits: {greatestDecrease_month} ($ {greatestDecrease_amount})"'\n')
 
-    # Write the calculated results
-    #textwriter.writerow([monthCount, netRevenue, ' ', greatestIncrease_month, greatestDecrease_month])
+#File read and outputs complete
