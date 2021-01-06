@@ -16,6 +16,7 @@ def candidate_in_list(candidateList, aCandidate):
         
 #Define Variables for Calculations
 totalVotes = 0
+winner = str("Unknown")
 
 #Define List for Candidate List in form [Candidate1, Candidate1's VoteCount, Candidate 2, Candidate2's VoteCount,..]
 candidateList = []
@@ -81,8 +82,39 @@ print('\n'"Election Results")
 print("-----------------------------")
 print(f"Total Votes: {totalVotes}")
 print("-----------------------------")
-print(candidateList)
+#print(candidateList)
 
+#Print Results
+
+#Define some helpful variables
+i = int(0)
+printName = ""
+printVotes = ""
+votePercentage = float(0)
+mostVotes = int(0)
+
+#Use while loop to go through candidate List to collect and print the voting results to screen
+while i < len(candidateList):
+    printName = str(candidateList[i])
+    i = i + 1
+    printVotes = str(candidateList[i])
+    votePercentage = float(int(printVotes)/int(totalVotes)*100)
+    votePercentage = round(votePercentage,2)
+    
+    #Track the winner by votes
+    if mostVotes < int(candidateList[i]):
+        mostVotes = int(candidateList[i])
+        winner = str(printName)
+
+    #Print 
+    print(f"{printName}: {votePercentage}% ({printVotes})")   
+
+    i = i + 1
+
+#Print the winner
+print("-----------------------------")
+print(f"Winner: {winner}")
+print("-----------------------------")
 
 # Specify the file to write to
 output_path = os.path.join("Analysis", "election_results.txt")
@@ -94,4 +126,27 @@ with open(output_path, 'w', newline='') as file:
     file.write("-----------------------------"'\n')
     file.write(f"Total Votes: {totalVotes}"'\n')
     file.write("-----------------------------"'\n')
-    #file.write(candidateList)
+    
+    #Use while loop to go through candidate List to collect and print the voting results to file
+    i = int(0)
+    while i < len(candidateList):
+        printName = str(candidateList[i])
+        i = i + 1
+        printVotes = str(candidateList[i])
+        votePercentage = float(int(printVotes)/int(totalVotes)*100)
+        votePercentage = round(votePercentage,2)
+    
+        #Track the winner by votes
+        if mostVotes < int(candidateList[i]):
+            mostVotes = int(candidateList[i])
+            winner = str(printName)
+
+        #Write candidate to file
+        file.write(f"{printName}: {votePercentage}% ({printVotes})"'\n')   
+
+        i = i + 1
+
+    #Print the winner to file
+    file.write("-----------------------------"'\n')
+    file.write(f"Winner: {winner}"'\n')
+    file.write("-----------------------------"'\n')
