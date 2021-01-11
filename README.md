@@ -7,7 +7,7 @@ Had to make some adjustments in calculating the average profit/loss.  In initial
 
 Output:
 
-![PyBank Financial Summary](https://github.com/pulliam-chris/Python-Challenge/blob/main/images/PyBank_output.jpg "PyBank Financial Summary")
+![PyBank Financial Summary](https://github.com/pulliam-chris/Python-Challenge/blob/main/images/PyBank_output.JPG "PyBank Financial Summary")
 
 I preferred to break out the screen printing and write-file procedures to make for easier troubleshooting and knowing that I could replicate the logic down once the output file was initialized.
 
@@ -16,7 +16,7 @@ Script file: main.py
 
 Output:
 
-![PyPoll Voting Summary](https://github.com/pulliam-chris/Python-Challenge/blob/main/images/PyPoll_output.jpg "PyPoll Voting Summary")
+![PyPoll Voting Summary](https://github.com/pulliam-chris/Python-Challenge/blob/main/images/PyPoll_output.JPG "PyPoll Voting Summary")
 
 Resources file was too large to upload the voting.csv file as instructed.  Using a modified/truncated file would alter the vote counts and could alter the "winner" designation.
 
