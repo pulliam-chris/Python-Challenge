@@ -18,7 +18,7 @@ Output:
 
 ![PyPoll Voting Summary](https://github.com/pulliam-chris/Python-Challenge/blob/main/images/PyPoll_output.JPG "PyPoll Voting Summary")
 
-Resources file was too large to upload the voting.csv file as instructed.  Using a modified/truncated file would alter the vote counts and could alter the "winner" designation.
+Resources file was too large to upload the election_data.csv file as instructed.  Using a modified/truncated file would alter the vote counts and could alter the "winner" designation.
 
 ![Election csv file size](https://github.com/pulliam-chris/Python-Challenge/blob/main/images/election_data_csv_filesize.jpg "Election csv file size")
 
